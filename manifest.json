@@ -10,6 +10,13 @@
     "48": "icons/border-48.png"
   },
 
+  "permissions": [
+    "<all_urls>",
+    "tabs",
+    "webNavigation",
+    "storage"
+  ],
+
   "content_scripts": [
     {
       "matches": ["*://*.mozilla.org/*"],
