@@ -22,6 +22,14 @@ html, body {
   background-color: #E5F2F2;
 }
 
+.activate:hover {
+  background-color: #CFF2F2;
+}
+
+.activate {
+  background-color: #E5F2F2;
+}
+
 .reset {
   background-color: #FBFBC9;
 }
