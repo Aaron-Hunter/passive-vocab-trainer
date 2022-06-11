@@ -1,0 +1,15 @@
+{
+	"name": "passive-language-reinforcer",
+	"version": "1.0.0",
+	"description": "Translates webpage text by identifying known words.",
+	"scripts": {
+		"build": "webpack"
+	},
+	"license": "AGPL-3.0-only",
+	"devDependencies": {
+		"webpack": "^5.73.0"
+	},
+	"dependencies": {
+		"anki-to-json": "1.0.3"
+	}
+}
