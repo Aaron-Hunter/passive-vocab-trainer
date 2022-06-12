@@ -1,3 +1,5 @@
+const ankiToJson = require('anki-to-json').default;
+
 function fillDatabase() {
 	//ankiToJSON and push to storage
 }
