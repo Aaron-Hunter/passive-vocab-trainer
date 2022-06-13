@@ -22,6 +22,7 @@ function fillDatabase() {
 
 	for (file of apkgFiles) {
 		ankiToJson(file, ankiDir);
+		//Then need to parse those json files into storage.local
 	}
 }
 
