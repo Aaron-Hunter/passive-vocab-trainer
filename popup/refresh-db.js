@@ -19,6 +19,10 @@ function fillDatabase() {
 	//ankiToJSON and push to storage
 	const ankiDir = path.join(__dirname, "..", "anki");
 	const apkgFiles = await findApkgFiles(ankiDir);
+
+	for (file of apkgFiles) {
+		ankiToJson(file, ankiDir);
+	}
 }
 
 /* Clear storage, process anki files with ankiToJson and push to storage */
