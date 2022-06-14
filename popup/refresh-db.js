@@ -18,11 +18,15 @@ function listenForClicks() {
 function fillDatabase() {
 	//ankiToJSON and push to storage
 	const ankiDir = path.join(__dirname, "..", "anki");
-	const apkgFiles = await findApkgFiles(ankiDir);
+	const apkgFiles = await findFilesWithExt(ankiDir, ".apkg");
+
+	const jsonDir = path.join(ankiDir, "json");
+	await fs.mkdir(jsonDir);
 
 	for (file of apkgFiles) {
-		ankiToJson(file, ankiDir);
+		ankiToJson(file, jsonDir);
 		//Then need to parse those json files into storage.local
+		const jsonFiles = await findFilesWithExt(jsonDir, ".json")
 	}
 }
 
@@ -38,17 +42,17 @@ function activateTranslation() {
 
 }
 
-async function findApkgFiles(folderName) {
-	let apkgFiles = [];
+async function findFilesWithExt(folderName, extName) {
+	let extFiles = [];
 
-	async function findFiles(folderName) {
+	async function findFiles(folderName, extName) {
 		const items = await fs.readdir(folderName, { withFileTypes: true });
 
 		for (item of items) {
 			if (item.isDirectory()) {
 				await findFiles(path.join(folderName, item.name))
 			} else {
-				if (path.extname(item.name) === ".apkg") {
+				if (path.extname(item.name) === extName) {
 					salesFiles.push(path.join(folderName, item.name));
 				}
 			}
@@ -57,6 +61,6 @@ async function findApkgFiles(folderName) {
 
 	await findFiles(folderName);
 
-	return apkgFiles;
+	return extFiles;
 }
 
