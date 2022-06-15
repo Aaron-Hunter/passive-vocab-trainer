@@ -27,6 +27,9 @@ function fillDatabase() {
 		ankiToJson(file, jsonDir);
 		//Then need to parse those json files into storage.local
 		const jsonFiles = await findFilesWithExt(jsonDir, ".json")
+
+		//parse json files and save key value pairs to local storage
+
 	}
 }
 
@@ -64,3 +67,12 @@ async function findFilesWithExt(folderName, extName) {
 	return extFiles;
 }
 
+//Consider making this async with readFile after learning more
+function jsonToLocalStorage(jsonFiles) {
+	for (file of jsonFiles) {
+		let jsonFile = fs.readFileSync(file, 'utf8');
+		let deck = JSON.parse(jsonFile);
+		//Save key value pairs to local storage
+		//Need to know the json formatting to complete this
+	}
+}
