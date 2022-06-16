@@ -70,9 +70,14 @@ async function findFilesWithExt(folderName, extName) {
 //Consider making this async with readFile after learning more
 function jsonToLocalStorage(jsonFiles) {
 	for (file of jsonFiles) {
-		let jsonFile = fs.readFileSync(file, 'utf8');
-		let deck = JSON.parse(jsonFile);
+		const jsonFile = fs.readFileSync(file, 'utf8');
+		const deck = JSON.parse(jsonFile);
 		//Save key value pairs to local storage
 		//Need to know the json formatting to complete this
+		for (card of deck) {
+			const key = card.back.split('\n')[0];
+			const val = card.back.split('\n')[1];
+			//Store key value pair in local storage 
+		}
 	}
 }
