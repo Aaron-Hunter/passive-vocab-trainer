@@ -29,7 +29,7 @@ function fillDatabase() {
 		const jsonFiles = await findFilesWithExt(jsonDir, ".json")
 
 		//parse json files and save key value pairs to local storage
-
+		jsonToLocalStorage(jsonFiles);
 	}
 }
 
