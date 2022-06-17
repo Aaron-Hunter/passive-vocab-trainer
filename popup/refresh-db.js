@@ -75,10 +75,15 @@ function jsonToLocalStorage(jsonFiles) {
 		//Save key value pairs to local storage
 		//Need to know the json formatting to complete this
 		for (card of deck) {
-			const key = card.back.split('\n')[0];
-			const val = card.back.split('\n')[1];
-			//Store key value pair in local storage
-			localStorage.setItem(key, val); 
+			const keys = card.back.split('\n')[0].split(', ');
+			const vals = card.back.split('\n')[1].split(', ');
+
+			//If there are multiple words per card, save each word separately
+			/*Each key can only map to one value, meaning each Foreign word will map to only one Native word, and some Native words may not be represented.
+			** Consider adding functionality to show alternative translations when word is clicked/hovered on*/
+			for (let i = 0; i < (Math.min(keys.length, vals.length)); i++) {
+				localStorage.setItem(keys[i], vals[i]); 
+			}
 		}
 	}
 }
