@@ -77,7 +77,8 @@ function jsonToLocalStorage(jsonFiles) {
 		for (card of deck) {
 			const key = card.back.split('\n')[0];
 			const val = card.back.split('\n')[1];
-			//Store key value pair in local storage 
+			//Store key value pair in local storage
+			localStorage.setItem(key, val); 
 		}
 	}
 }
