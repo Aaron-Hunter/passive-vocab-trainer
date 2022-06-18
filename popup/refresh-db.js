@@ -18,15 +18,15 @@ function listenForClicks() {
 function fillDatabase() {
 	//ankiToJSON and push to storage
 	const ankiDir = path.join(__dirname, "..", "anki");
-	const apkgFiles = await findFilesWithExt(ankiDir, ".apkg");
+	const apkgFiles = findFilesWithExt(ankiDir, ".apkg");
 
 	const jsonDir = path.join(ankiDir, "json");
-	await fs.mkdir(jsonDir);
+	fs.mkdirSync(jsonDir);
 
-	for (file of apkgFiles) {
+	for (const file of apkgFiles) {
 		ankiToJson(file, jsonDir);
 		//Then need to parse those json files into storage.local
-		const jsonFiles = await findFilesWithExt(jsonDir, ".json")
+		const jsonFiles = findFilesWithExt(jsonDir, ".json")
 
 		//parse json files and save key value pairs to local storage
 		jsonToLocalStorage(jsonFiles);
@@ -45,36 +45,36 @@ function activateTranslation() {
 
 }
 
-async function findFilesWithExt(folderName, extName) {
+function findFilesWithExt(folderName, extName) {
 	let extFiles = [];
 
-	async function findFiles(folderName, extName) {
-		const items = await fs.readdir(folderName, { withFileTypes: true });
+	function findFiles(folderName, extName) {
+		const items = fs.readdirSync(folderName, { withFileTypes: true });
 
-		for (item of items) {
+		for (const item of items) {
 			if (item.isDirectory()) {
-				await findFiles(path.join(folderName, item.name))
+				findFiles(path.join(folderName, item.name))
 			} else {
 				if (path.extname(item.name) === extName) {
-					salesFiles.push(path.join(folderName, item.name));
+					extFiles.push(path.join(folderName, item.name));
 				}
 			}
 		}
 	}
 
-	await findFiles(folderName);
+	findFiles(folderName, extName);
 
 	return extFiles;
 }
 
 //Consider making this async with readFile after learning more
 function jsonToLocalStorage(jsonFiles) {
-	for (file of jsonFiles) {
+	for (const file of jsonFiles) {
 		const jsonFile = fs.readFileSync(file, 'utf8');
 		const deck = JSON.parse(jsonFile);
 		//Save key value pairs to local storage
 		//Need to know the json formatting to complete this
-		for (card of deck) {
+		for (const card of deck) {
 			const keys = card.back.split('\n')[0].split(', ');
 			const vals = card.back.split('\n')[1].split(', ');
 
