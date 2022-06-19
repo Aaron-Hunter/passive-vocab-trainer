@@ -16,7 +16,7 @@ function translateKnownWords(nativeStr) {
 	const mixedWords = nativeStr.split(/[ ,.]+/);
 	for (let i = 0; i < mixedWords.length; i++) {
 		//check if the word is in the database of known words and if it is, replace the word with its translation
-		let getTranslation= browser.storage.local.get(mixedWords[i]);
+		let getTranslation = browser.storage.local.get(mixedWords[i]);
 		getTranslation.then(() => {mixedWords[i] = getTranslation}, () => {/*ignore*/});
 	}
 	return mixedWords.join(' ');

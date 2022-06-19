@@ -65,6 +65,7 @@ function findFilesWithExt(dirName, extName) {
 /*Extracts foreign-native word pairs from json files and saves them to local storage*/
 //Consider making this async with readFile after learning more
 function jsonToLocalStorage(jsonFiles) {
+
 	for (const file of jsonFiles) {
 		const jsonFile = fs.readFileSync(file, 'utf8');
 		const deck = JSON.parse(jsonFile);
@@ -78,7 +79,9 @@ function jsonToLocalStorage(jsonFiles) {
 			//Some native words may not be represented, but every foreign word will be, achieving desired goal of practicing vocab.
 			/*Consider adding functionality to show alternative translations when word is clicked/hovered on*/
 			for (let i = 0; i < (Math.min(keys.length, vals.length)); i++) {
-				localStorage.setItem(keys[i], vals[i]); 
+				//Need to make an object named keys[i] with one property vals[i]
+				//OR make a single 'translation' object, and add all the key[i] vals[i] pairs as properties before saving it to local storage
+				//Then when checking for known words, retrieve the translation object and try keys
 			}
 		}
 	}
