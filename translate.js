@@ -9,7 +9,7 @@ for (let i = 0; i < nativeParas.length; i++) {
 }
 
 function translateKnownWords(nativeStr) {
-	let words = nativeStr.split();
+	const words = nativeStr.split();
 	words.forEach(word => {
 		//check if the word is in the database of known words and if it is, replace the word with its translation
 	})
