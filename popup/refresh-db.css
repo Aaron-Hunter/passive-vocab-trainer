@@ -14,26 +14,10 @@ html, body {
   cursor: pointer;
 }
 
-.refresh:hover {
-  background-color: #CFF2F2;
-}
-
-.refresh {
-  background-color: #E5F2F2;
-}
-
 .activate:hover {
   background-color: #CFF2F2;
 }
 
 .activate {
   background-color: #E5F2F2;
-}
-
-.reset {
-  background-color: #FBFBC9;
-}
-
-.reset:hover {
-  background-color: #EAEA9D;
 }
