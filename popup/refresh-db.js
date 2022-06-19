@@ -10,28 +10,32 @@ function listenForClicks() {
 	})
 }
 
-function fillDatabase() {
-	//ankiToJSON and push to storage
-	const ankiDir = path.join(__dirname, "..", "anki");
-	const apkgFiles = findFilesWithExt(ankiDir, ".apkg");
-
-	const jsonDir = path.join(ankiDir, "json");
-	fs.mkdirSync(jsonDir);
-
-	for (const file of apkgFiles) {
-		ankiToJson(file, jsonDir);
-		//Then need to parse those json files into storage.local
-		const jsonFiles = findFilesWithExt(jsonDir, ".json")
-
-		//parse json files and save key value pairs to local storage
-		jsonToLocalStorage(jsonFiles);
-	}
-}
-
 /* Clear storage, process anki files with ankiToJson and push to storage */
 function activateTranslation() {
 	let clearStorage = browser.storage.local.clear();
-	clearStorage.then(fillDatabase(), console.error("Failed to refresh data: ${error}"));
+	clearStorage.then(fillStorage(), console.error("Failed to refresh data: ${error}"));
+}
+
+/*Process anki files with ankiToJson and save to storage with jsonToLocalStorage*/
+function fillStorage() {
+	//find all anki files in the anki directory
+	const ankiDir = path.join(__dirname, "..", "anki");
+	const apkgFiles = findFilesWithExt(ankiDir, ".apkg");
+
+	//create a directory to store the json files if it doesn't exist
+	const jsonDir = path.join(ankiDir, "json");
+	if (!fs.existsSync(jsonDir)) {
+		fs.mkdirSync(jsonDir);
+	}
+
+	//convert anki files to json and save json files in jsonDir
+	for (const file of apkgFiles) {
+		ankiToJson(file, jsonDir);	
+	}
+
+	//find all json files in the json directory and save their key value pairs to local storage
+	const jsonFiles = findFilesWithExt(jsonDir, ".json");
+	jsonToLocalStorage(jsonFiles);
 }
 
 function findFilesWithExt(folderName, extName) {
