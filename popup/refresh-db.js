@@ -33,47 +33,50 @@ function fillStorage() {
 		ankiToJson(file, jsonDir);	
 	}
 
-	//find all json files in the json directory and save their key value pairs to local storage
+	//find all json files in the json directory and save their foreign-native word pairs to local storage
 	const jsonFiles = findFilesWithExt(jsonDir, ".json");
 	jsonToLocalStorage(jsonFiles);
 }
 
-function findFilesWithExt(folderName, extName) {
+/*Recursively find all files of given extension name within a directory*/
+function findFilesWithExt(dirName, extName) {
 	let extFiles = [];
 
-	function findFiles(folderName, extName) {
-		const items = fs.readdirSync(folderName, { withFileTypes: true });
+	/*Helper function to search recursively*/
+	function findFiles(dirName, extName) {
+		const items = fs.readdirSync(dirName, { withFileTypes: true });
 
 		for (const item of items) {
 			if (item.isDirectory()) {
-				findFiles(path.join(folderName, item.name))
+				findFiles(path.join(dirName, item.name))
 			} else {
 				if (path.extname(item.name) === extName) {
-					extFiles.push(path.join(folderName, item.name));
+					extFiles.push(path.join(dirName, item.name));
 				}
 			}
 		}
 	}
 
-	findFiles(folderName, extName);
+	findFiles(dirName, extName);
 
 	return extFiles;
 }
 
+/*Extracts foreign-native word pairs from json files and saves them to local storage*/
 //Consider making this async with readFile after learning more
 function jsonToLocalStorage(jsonFiles) {
 	for (const file of jsonFiles) {
 		const jsonFile = fs.readFileSync(file, 'utf8');
 		const deck = JSON.parse(jsonFile);
-		//Save key value pairs to local storage
-		//Need to know the json formatting to complete this
+		//Save foreign-native word pairs to local storage
 		for (const card of deck) {
-			const keys = card.back.split('\n')[0].split(', ');
-			const vals = card.back.split('\n')[1].split(', ');
+			const keys = card.back.split('\n')[0].split(', '); //foreign
+			const vals = card.back.split('\n')[1].split(', '); //native
 
 			//If there are multiple words per card, save each word separately
-			/*Each key can only map to one value, meaning each Foreign word will map to only one Native word, and some Native words may not be represented.
-			** Consider adding functionality to show alternative translations when word is clicked/hovered on*/
+			//Each key can only map to one value, meaning each foreign word will map to only one native word.
+			//Some native words may not be represented, but every foreign word will be, achieving desired goal of practicing vocab.
+			/*Consider adding functionality to show alternative translations when word is clicked/hovered on*/
 			for (let i = 0; i < (Math.min(keys.length, vals.length)); i++) {
 				localStorage.setItem(keys[i], vals[i]); 
 			}
