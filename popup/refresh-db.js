@@ -2,6 +2,9 @@ const ankiToJson = require("anki-to-json").default;
 const fs = require("fs").promises;
 const path = require("path");
 
+const translationObject = "objName";
+window[translationObject] = {};
+
 function listenForClicks() {
 	document.addEventListener("click", (e) => {
 		if (e.target.taskList.contains("activate")) {
@@ -76,12 +79,13 @@ function jsonToLocalStorage(jsonFiles) {
 
 			//If there are multiple words per card, save each word separately
 			//Each key can only map to one value, meaning each foreign word will map to only one native word.
-			//Some native words may not be represented, but every foreign word will be, achieving desired goal of practicing vocab.
+			//Some native words may not be represented, but every foreign word will be represented, achieving desired goal of practicing vocab.
 			/*Consider adding functionality to show alternative translations when word is clicked/hovered on*/
 			for (let i = 0; i < (Math.min(keys.length, vals.length)); i++) {
 				//Need to make an object named keys[i] with one property vals[i]
 				//OR make a single 'translation' object, and add all the key[i] vals[i] pairs as properties before saving it to local storage
 				//Then when checking for known words, retrieve the translation object and try keys
+				window[translationObject][keys[i]] = vals[i];
 			}
 		}
 	}
