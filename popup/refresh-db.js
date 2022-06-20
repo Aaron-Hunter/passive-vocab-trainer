@@ -2,7 +2,7 @@ const ankiToJson = require("anki-to-json").default;
 const fs = require("fs").promises;
 const path = require("path");
 
-const translationObject = "objName";
+const translationObject = "translation";
 window[translationObject] = {};
 
 function listenForClicks() {
