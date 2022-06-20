@@ -1,3 +1,5 @@
+const translationObj = browser.storage.local.get("translation");
+
 //Get all the p nodes
 const nativeParas = document.getElementsByTagName("p");
 
@@ -16,8 +18,6 @@ function translateKnownWords(nativeStr) {
 	const mixedWords = nativeStr.split(/[ ,.]+/);
 	for (let i = 0; i < mixedWords.length; i++) {
 		//check if the word is in the database of known words and if it is, replace the word with its translation
-		//Then when checking for known words, retrieve the translation object and try keys
-		let translationObj = browser.storage.local.get("translation");
 		translationObj.then(() => {
 			if (typeof translationObj[mixedWords[i]] !== "undefined") {
 				mixedWords[i] = translationObj[mixedWords[i]]
