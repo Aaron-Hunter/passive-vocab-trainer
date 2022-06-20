@@ -83,9 +83,7 @@ function jsonToLocalStorage(jsonFiles) {
 			//Some native words may not be represented, but every foreign word will be represented, achieving desired goal of practicing vocab.
 			/*Consider adding functionality to show alternative translations when word is clicked/hovered on*/
 			for (let i = 0; i < (Math.min(keys.length, vals.length)); i++) {
-				//Need to make an object named keys[i] with one property vals[i]
-				//OR make a single 'translation' object, and add all the key[i] vals[i] pairs as properties before saving it to local storage
-				//Then when checking for known words, retrieve the translation object and try keys
+				//Make a single 'translation' object, and add all the key[i] vals[i] pairs as properties before saving it to local storage
 				window[translationObject][keys[i]] = vals[i];
 			}
 		}
