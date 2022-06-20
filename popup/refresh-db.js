@@ -88,4 +88,5 @@ function jsonToLocalStorage(jsonFiles) {
 			}
 		}
 	}
+	let saveTranslation = browser.storage.local.set(window[translationObject]);
 }
