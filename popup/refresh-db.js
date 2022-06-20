@@ -17,6 +17,7 @@ function listenForClicks() {
 function activateTranslation() {
 	let clearStorage = browser.storage.local.clear();
 	clearStorage.then(fillStorage(), console.error("Failed to refresh data: ${error}"));
+	window[translationObject] = {};
 }
 
 /*Process anki files with ankiToJson and save to storage with jsonToLocalStorage*/
