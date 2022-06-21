@@ -75,12 +75,12 @@ function jsonToLocalStorage(jsonFiles) {
 		const deck = JSON.parse(jsonFile);
 		//Save foreign-native word pairs to local storage
 		for (const card of deck) {
-			const keys = card.back.split('\n')[0].split(', '); //foreign
-			const vals = card.back.split('\n')[1].split(', '); //native
-
 			//If there are multiple words per card, save each word separately
 			//Each key can only map to one value, meaning each foreign word will map to only one native word.
 			//Some native words may not be represented, but every foreign word will be represented, achieving desired goal of practicing vocab.
+			const keys = card.back.split('\n')[0].split(', '); //foreign
+			const vals = card.back.split('\n')[1].split(', '); //native
+
 			/*Consider adding functionality to show alternative translations when word is clicked/hovered on*/
 			for (let i = 0; i < (Math.min(keys.length, vals.length)); i++) {
 				//Make a single 'translation' object, and add all the key[i] vals[i] pairs as properties before saving it to local storage
