@@ -14,15 +14,19 @@ for (let i = 0; i < nativeParas.length; i++) {
 Input:  nativeStr  a string with all words in the native language
 Output:  mixedStr  a string with known words translated*/
 function translateKnownWords(nativeStr) {
-	//Split by space, comma, or period
-	const mixedWords = nativeStr.split(/[ ,.]+/);
+	//Split by space, comma, or period while preserving these seperators
+	const mixedWords = nativeStr.split(/([ ,.]+)/g);
 	for (let i = 0; i < mixedWords.length; i++) {
-		//check if the word is in the database of known words and if it is, replace the word with its translation
-		translationObj.then(() => {
-			if (typeof translationObj[mixedWords[i]] !== "undefined") {
-				mixedWords[i] = translationObj[mixedWords[i]]
-			}
-		}, () => {/*ignore*/});
+		//Only check for translation of words, skip empty strings and seperators
+		if (mixedWords[i].length > 0 && mixedWords[i].match(/[ ,.]+/)) {
+			//check if the word is in the database of known words and if it is, replace the word with its translation
+			translationObj.then(() => {
+				if (typeof translationObj[mixedWords[i]] !== "undefined") {
+					mixedWords[i] = translationObj[mixedWords[i]]
+				}
+			}, () => {/*ignore*/});
+		}
 	}
-	return mixedWords.join(' ');
+	//Do not need a seperator when joining because spaces were preserved
+	return mixedWords.join();
 }
