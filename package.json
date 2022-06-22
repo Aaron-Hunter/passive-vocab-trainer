@@ -1,7 +1,7 @@
 {
 	"name": "passive-language-reinforcer",
 	"version": "1.0.0",
-	"description": "Translates webpage text by identifying known words.",
+	"description": "Translates known words in webpage text to practice vocab while browsing.",
 	"scripts": {
 		"build": "webpack"
 	},
@@ -10,6 +10,6 @@
 		"webpack": "^5.73.0"
 	},
 	"dependencies": {
-		"anki-to-json": "1.0.3"
+		"anki-to-json": "^1.0.3"
 	}
 }
