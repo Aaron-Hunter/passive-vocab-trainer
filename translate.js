@@ -19,11 +19,11 @@ function translateKnownWords(nativeStr) {
 	const mixedWords = nativeStr.split(/([ ,.]+)/g);
 	for (let i = 0; i < mixedWords.length; i++) {
 		//Only check for translation of words, skip empty strings and seperators
-		if (mixedWords[i].length > 0 && mixedWords[i].match(/[ ,.]+/)) {
+		if (mixedWords[i].length > 0 && !mixedWords[i].match(/[ ,.]+/)) {
 			//if the word is in the database of known words replace it word with its translation
 			translationObj.then(() => {
 				if (typeof translationObj[mixedWords[i]] !== "undefined") {
-					mixedWords[i] = translationObj[mixedWords[i]]
+					mixedWords[i] = translationObj[mixedWords[i].toLowerCase()]
 				}
 			}, () => {/*ignore*/});
 		}
