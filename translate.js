@@ -20,7 +20,7 @@ function translateKnownWords(nativeStr) {
 	for (let i = 0; i < mixedWords.length; i++) {
 		//Only check for translation of words, skip empty strings and seperators
 		if (mixedWords[i].length > 0 && mixedWords[i].match(/[ ,.]+/)) {
-			//check if the word is in the database of known words and if it is, replace the word with its translation
+			//if the word is in the database of known words replace it word with its translation
 			translationObj.then(() => {
 				if (typeof translationObj[mixedWords[i]] !== "undefined") {
 					mixedWords[i] = translationObj[mixedWords[i]]
