@@ -7,8 +7,8 @@ const nativeParas = document.getElementsByTagName("p");
 for (let i = 0; i < nativeParas.length; i++) {
 	let nativeStr = nativeParas[i].textContent;
 	let foreignStr = translateKnownWords(nativeStr);
+	//Need to publish nativeParas to the page. nodeValue may not work, textContent may ruin formatting
 	nativeParas[i].nodeValue = foreignStr;
-	//Need to publish nativeParas to the page
 }
 
 /*Parse a given string and translate the known words
