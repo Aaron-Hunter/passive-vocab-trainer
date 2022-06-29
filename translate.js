@@ -29,5 +29,5 @@ function translateKnownWords(nativeStr) {
 		}
 	}
 	//Do not need a seperator when joining because spaces were preserved
-	return mixedWords.join();
+	return mixedWords.join("");
 }
